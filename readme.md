@@ -202,7 +202,7 @@ Silakan modifikasi sesuai kebutuhan sekolah Anda.
 Proyek website profil ini dirancang, dioptimalkan, dan disempurnakan melalui kolaborasi lintas ekosistem AI terkemuka. Masing-masing model memberikan kontribusi spesifik untuk menciptakan kode vanilla yang bersih, responsif, dan interaktif:
 
 *   **🧠 Claude (Anthropic):** Bertanggung jawab atas perancangan arsitektur data struktural untuk 24 repositori postingan dummy di `post.html`, manajemen logika pemrograman state kontrol (pencarian, sorting, penanganan elipsis pagination), serta penulisan dokumentasi teknis ini.
-*   **⚡ ChatGPT (OpenAI):** Melakukan kurasi komponen dasar utilitas TailwindCSS, menyusun kerangka boilerplate semantik HTML5, fungsionalitas IntersectionObserver untuk efek scroll reveal, serta penanganan fleksibilitas markup responsif pada breakpoints mobile.
+*   **💡 ChatGPT (OpenAI):** Bertanggung jawab dalam sesi *brainstorming* ide dasar, merumuskan konsep kreatif, serta menyusun cetak biru (*blueprint*) fitur dan struktur 15 section utama agar sesuai dengan kebutuhan profil sekolah modern.
 *   **✨ Gemini (Google):** Mengoptimalisasi estetika visual mikro, mengubah arsitektur layout grid statis menjadi layout dinamis yang aktif, menyuntikkan perilaku interaktif tingkat lanjut menggunakan utility class murni (`group-hover`, transformasi rotasi ikon, transisi elevasi bayangan ekstrem), serta memastikan konsistensi desain sistem warna primer.
 
 Kombinasi dari ketiga AI ini memastikan proyek berjalan ringan tanpa dependensi eksternal, namun memiliki kualitas interaksi visual setara website modern masa kini.
