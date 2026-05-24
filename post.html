@@ -1,0 +1,2110 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Berita & Pengumuman – SMK Nusantara Teknologi</title>
+    <meta
+      name="description"
+      content="Berita, pengumuman, dan kegiatan terbaru dari SMK Nusantara Teknologi."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Montserrat", "sans-serif"] },
+            colors: {
+              primary: {
+                50: "#fff1f1",
+                100: "#ffe1e1",
+                200: "#ffc7c7",
+                300: "#ffa0a0",
+                400: "#ff6b6b",
+                500: "#f93232",
+                600: "#e01010",
+                700: "#c00a0a",
+                800: "#9f0d0d",
+                900: "#830f0f",
+                950: "#470404",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e01010;
+        border-radius: 3px;
+      }
+
+      /* Navbar underline */
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #e01010;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Card hover */
+      .card-hover {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.11);
+      }
+
+      /* Gradient text */
+      .gradient-text {
+        background: linear-gradient(135deg, #e01010, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Page hero */
+      .page-hero {
+        background: linear-gradient(
+          135deg,
+          #9f0d0d 0%,
+          #c00a0a 30%,
+          #e01010 60%,
+          #9f0d0d 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .page-hero::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: #f9fafb;
+        clip-path: ellipse(55% 100% at 50% 100%);
+      }
+
+      /* Category badge colors */
+      .badge-berita {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .badge-pengumuman {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge-kegiatan {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .badge-prestasi {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      /* Active filter */
+      .filter-btn.active {
+        background: #e01010;
+        color: #fff;
+      }
+      .filter-btn:not(.active) {
+        background: #f3f4f6;
+        color: #4b5563;
+      }
+      .filter-btn:not(.active):hover {
+        background: #ffe1e1;
+        color: #c00a0a;
+      }
+
+      /* Search focus ring */
+      #search-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(224, 16, 16, 0.18);
+      }
+
+      /* Sort select */
+      #sort-select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(224, 16, 16, 0.18);
+      }
+
+      /* Pagination */
+      .page-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .page-btn.active {
+        background: #e01010;
+        color: #fff;
+      }
+      .page-btn:not(.active) {
+        background: #f3f4f6;
+        color: #4b5563;
+      }
+      .page-btn:not(.active):hover {
+        background: #ffe1e1;
+        color: #c00a0a;
+      }
+      .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* Featured post */
+      .featured-card {
+        transition: box-shadow 0.3s ease;
+      }
+      .featured-card:hover {
+        box-shadow: 0 24px 60px rgba(224, 16, 16, 0.13);
+      }
+
+      /* Sidebar tag hover */
+      .tag-btn {
+        transition: all 0.2s;
+      }
+      .tag-btn:hover {
+        background: #ffe1e1;
+        color: #c00a0a;
+      }
+
+      /* Empty state */
+      #empty-state {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
+    <!-- ===== NAVBAR ===== -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-all duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <!-- Logo -->
+          <a href="index.html" class="flex items-center gap-3 group">
+            <div
+              class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14l9-5-9-5-9 5 9 5z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                />
+              </svg>
+            </div>
+            <div>
+              <span
+                class="font-extrabold text-gray-900 text-lg leading-none block"
+                >SMK Nusantara</span
+              >
+              <span
+                class="text-xs text-primary-600 font-semibold tracking-wider uppercase"
+                >Teknologi</span
+              >
+            </div>
+          </a>
+
+          <!-- Desktop Menu -->
+          <div class="hidden lg:flex items-center gap-8">
+            <a
+              href="index.html#home"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Home</a
+            >
+            <a
+              href="index.html#tentang"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Tentang</a
+            >
+            <a
+              href="index.html#jurusan"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Jurusan</a
+            >
+            <a
+              href="index.html#fasilitas"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Fasilitas</a
+            >
+            <a
+              href="index.html#prestasi"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Prestasi</a
+            >
+            <a
+              href="index.html#ppdb"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >PPDB</a
+            >
+            <a
+              href="index.html#kontak"
+              class="nav-link text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors"
+              >Kontak</a
+            >
+          </div>
+
+          <!-- CTA + Hamburger -->
+          <div class="flex items-center gap-3">
+            <a
+              href="index.html#ppdb"
+              class="hidden sm:inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all hover:shadow-lg hover:shadow-primary-600/30 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+              Daftar PPDB
+            </a>
+            <button
+              id="hamburger"
+              class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Menu"
+            >
+              <div id="ham-icon" class="flex flex-col gap-1.5 w-6">
+                <span
+                  class="block h-0.5 bg-gray-700 rounded transition-all duration-300"
+                ></span>
+                <span
+                  class="block h-0.5 bg-gray-700 rounded transition-all duration-300"
+                ></span>
+                <span
+                  class="block h-0.5 bg-gray-700 rounded transition-all duration-300"
+                ></span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="lg:hidden hidden bg-white border-t border-gray-100 shadow-lg"
+      >
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+          <a
+            href="index.html"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Home</a
+          >
+          <a
+            href="index.html#tentang"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Tentang</a
+          >
+          <a
+            href="index.html#jurusan"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Jurusan</a
+          >
+          <a
+            href="index.html#fasilitas"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Fasilitas</a
+          >
+          <a
+            href="index.html#prestasi"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Prestasi</a
+          >
+          <a
+            href="index.html#ppdb"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >PPDB</a
+          >
+          <a
+            href="index.html#kontak"
+            class="mobile-link py-2.5 px-4 rounded-lg text-gray-700 font-semibold hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >Kontak</a
+          >
+          <a
+            href="index.html#ppdb"
+            class="mt-2 bg-primary-600 text-white text-center font-bold py-3 px-4 rounded-xl hover:bg-primary-700 transition-colors"
+            >🎓 Daftar PPDB Sekarang</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== PAGE HERO ===== -->
+    <header class="page-hero pt-28 pb-24 md:pt-36 md:pb-32">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"
+      >
+        <!-- Breadcrumb -->
+        <nav
+          class="flex justify-center items-center gap-2 text-white/60 text-sm font-medium mb-6"
+        >
+          <a href="index.html" class="hover:text-white transition-colors"
+            >Home</a
+          >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+          <span class="text-white font-bold">Berita & Pengumuman</span>
+        </nav>
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4"
+        >
+          Berita &amp; <span class="text-yellow-300">Pengumuman</span>
+        </h1>
+        <p class="text-white/80 text-lg max-w-2xl mx-auto">
+          Ikuti terus informasi terkini, kegiatan sekolah, prestasi siswa, dan
+          pengumuman resmi dari SMK Nusantara Teknologi.
+        </p>
+        <!-- Quick stats -->
+        <div class="flex flex-wrap justify-center gap-6 mt-10">
+          <div
+            class="bg-white/10 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-3"
+          >
+            <span class="text-2xl font-black text-yellow-300" id="stat-total"
+              >48</span
+            >
+            <span class="text-white/80 text-sm font-medium"
+              >Total Postingan</span
+            >
+          </div>
+          <div
+            class="bg-white/10 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-3"
+          >
+            <span class="text-2xl font-black text-yellow-300">4</span>
+            <span class="text-white/80 text-sm font-medium">Kategori</span>
+          </div>
+          <div
+            class="bg-white/10 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-3"
+          >
+            <span
+              class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+            ></span>
+            <span class="text-white/80 text-sm font-medium"
+              >Update rutin setiap minggu</span
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="flex flex-col lg:flex-row gap-10">
+        <!-- ====== LEFT: POSTS AREA ====== -->
+        <div class="flex-1 min-w-0">
+          <!-- Search + Sort Bar -->
+          <div class="flex flex-col sm:flex-row gap-3 mb-7 reveal">
+            <!-- Search -->
+            <div class="relative flex-1">
+              <svg
+                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Cari berita, pengumuman, kegiatan..."
+                class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 bg-white text-sm font-medium text-gray-800 placeholder-gray-400 transition-all"
+              />
+              <button
+                id="search-clear"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 transition-colors hidden"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <!-- Sort -->
+            <div class="relative flex-shrink-0">
+              <select
+                id="sort-select"
+                class="appearance-none pl-4 pr-10 py-3.5 rounded-2xl border border-gray-200 bg-white text-sm font-semibold text-gray-700 cursor-pointer transition-all"
+              >
+                <option value="terbaru">Terbaru</option>
+                <option value="terlama">Terlama</option>
+                <option value="az">A – Z</option>
+                <option value="za">Z – A</option>
+              </select>
+              <svg
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="flex flex-wrap gap-2.5 mb-8 reveal">
+            <button
+              class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+              data-cat="semua"
+            >
+              Semua
+              <span class="ml-1.5 opacity-70 text-xs" id="count-semua"
+                >(48)</span
+              >
+            </button>
+            <button
+              class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+              data-cat="berita"
+            >
+              <span
+                class="inline-block w-2 h-2 rounded-full bg-red-500 mr-1.5"
+              ></span
+              >Berita
+              <span class="ml-1 opacity-70 text-xs" id="count-berita"
+                >(16)</span
+              >
+            </button>
+            <button
+              class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+              data-cat="pengumuman"
+            >
+              <span
+                class="inline-block w-2 h-2 rounded-full bg-yellow-500 mr-1.5"
+              ></span
+              >Pengumuman
+              <span class="ml-1 opacity-70 text-xs" id="count-pengumuman"
+                >(12)</span
+              >
+            </button>
+            <button
+              class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+              data-cat="kegiatan"
+            >
+              <span
+                class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5"
+              ></span
+              >Kegiatan
+              <span class="ml-1 opacity-70 text-xs" id="count-kegiatan"
+                >(14)</span
+              >
+            </button>
+            <button
+              class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+              data-cat="prestasi"
+            >
+              <span
+                class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1.5"
+              ></span
+              >Prestasi
+              <span class="ml-1 opacity-70 text-xs" id="count-prestasi"
+                >(6)</span
+              >
+            </button>
+          </div>
+
+          <!-- Results Info -->
+          <div class="flex items-center justify-between mb-6 reveal">
+            <p class="text-gray-500 text-sm font-medium" id="results-info">
+              Menampilkan
+              <strong class="text-gray-800" id="showing-count">9</strong> dari
+              <strong class="text-gray-800" id="total-count">48</strong>
+              postingan
+            </p>
+            <!-- View Toggle -->
+            <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+              <button
+                id="view-grid"
+                class="view-toggle p-2 rounded-lg bg-white shadow-sm text-primary-600 transition-all"
+                aria-label="Grid view"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z" />
+                </svg>
+              </button>
+              <button
+                id="view-list"
+                class="view-toggle p-2 rounded-lg text-gray-400 hover:text-gray-600 transition-all"
+                aria-label="List view"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Posts Grid -->
+          <div
+            id="posts-container"
+            class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-10"
+          >
+            <!-- Posts are rendered by JS -->
+          </div>
+
+          <!-- List View Container (hidden by default) -->
+          <div
+            id="posts-list-container"
+            class="hidden flex-col gap-5 mb-10"
+          ></div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="text-center py-20">
+            <div
+              class="w-20 h-20 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto mb-5"
+            >
+              <svg
+                class="w-10 h-10 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-black text-gray-700 mb-2">
+              Postingan tidak ditemukan
+            </h3>
+            <p class="text-gray-400 text-sm mb-6">
+              Coba ubah kata kunci pencarian atau pilih kategori lain.
+            </p>
+            <button
+              id="reset-filter"
+              class="inline-flex items-center gap-2 bg-primary-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-primary-700 transition-colors"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+              Reset Filter
+            </button>
+          </div>
+
+          <!-- Pagination -->
+          <div
+            id="pagination-wrapper"
+            class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4"
+          >
+            <p class="text-gray-400 text-sm" id="page-info">Halaman 1 dari 6</p>
+            <div id="pagination" class="flex items-center gap-1.5"></div>
+          </div>
+        </div>
+
+        <!-- ====== RIGHT: SIDEBAR ====== -->
+        <aside class="w-full lg:w-80 flex-shrink-0 space-y-6">
+          <!-- Featured / Highlight -->
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden reveal"
+          >
+            <div
+              class="px-6 py-4 border-b border-gray-100 flex items-center justify-between"
+            >
+              <h3 class="font-black text-gray-900">Postingan Unggulan</h3>
+              <span
+                class="w-2.5 h-2.5 bg-primary-600 rounded-full animate-pulse"
+              ></span>
+            </div>
+            <div class="p-4 space-y-4">
+              <a
+                href="#"
+                class="featured-card flex gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=120&q=80"
+                  class="w-16 h-16 rounded-xl object-cover flex-shrink-0"
+                  alt=""
+                />
+                <div class="min-w-0">
+                  <span
+                    class="text-xs font-bold text-primary-600 uppercase tracking-wide"
+                    >Berita</span
+                  >
+                  <p
+                    class="text-sm font-bold text-gray-900 leading-snug group-hover:text-primary-600 transition-colors line-clamp-2"
+                  >
+                    Siswa RPL Raih Juara 1 LKS Nasional 2025
+                  </p>
+                  <p class="text-xs text-gray-400 mt-1">15 Mei 2025</p>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="featured-card flex gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=120&q=80"
+                  class="w-16 h-16 rounded-xl object-cover flex-shrink-0"
+                  alt=""
+                />
+                <div class="min-w-0">
+                  <span
+                    class="text-xs font-bold text-yellow-600 uppercase tracking-wide"
+                    >Pengumuman</span
+                  >
+                  <p
+                    class="text-sm font-bold text-gray-900 leading-snug group-hover:text-primary-600 transition-colors line-clamp-2"
+                  >
+                    Jadwal Resmi PPDB Tahun Ajaran 2025/2026
+                  </p>
+                  <p class="text-xs text-gray-400 mt-1">10 Mei 2025</p>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="featured-card flex gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=120&q=80"
+                  class="w-16 h-16 rounded-xl object-cover flex-shrink-0"
+                  alt=""
+                />
+                <div class="min-w-0">
+                  <span
+                    class="text-xs font-bold text-blue-600 uppercase tracking-wide"
+                    >Kegiatan</span
+                  >
+                  <p
+                    class="text-sm font-bold text-gray-900 leading-snug group-hover:text-primary-600 transition-colors line-clamp-2"
+                  >
+                    Kunjungan Industri ke PT Telkom Indonesia Jakarta
+                  </p>
+                  <p class="text-xs text-gray-400 mt-1">5 Mei 2025</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Statistik Postingan -->
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 reveal"
+          >
+            <h3 class="font-black text-gray-900 mb-5">Statistik Postingan</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span
+                    class="font-semibold text-gray-700 flex items-center gap-2"
+                    ><span
+                      class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"
+                    ></span
+                    >Berita</span
+                  >
+                  <span class="font-black text-gray-900">16</span>
+                </div>
+                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-red-500 rounded-full"
+                    style="width: 33%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span
+                    class="font-semibold text-gray-700 flex items-center gap-2"
+                    ><span
+                      class="w-2.5 h-2.5 rounded-full bg-yellow-500 inline-block"
+                    ></span
+                    >Pengumuman</span
+                  >
+                  <span class="font-black text-gray-900">12</span>
+                </div>
+                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-yellow-500 rounded-full"
+                    style="width: 25%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span
+                    class="font-semibold text-gray-700 flex items-center gap-2"
+                    ><span
+                      class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"
+                    ></span
+                    >Kegiatan</span
+                  >
+                  <span class="font-black text-gray-900">14</span>
+                </div>
+                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-blue-500 rounded-full"
+                    style="width: 29%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span
+                    class="font-semibold text-gray-700 flex items-center gap-2"
+                    ><span
+                      class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"
+                    ></span
+                    >Prestasi</span
+                  >
+                  <span class="font-black text-gray-900">6</span>
+                </div>
+                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-green-500 rounded-full"
+                    style="width: 13%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 reveal"
+          >
+            <h3 class="font-black text-gray-900 mb-5">Topik Populer</h3>
+            <div class="flex flex-wrap gap-2">
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="PPDB"
+              >
+                PPDB
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="LKS"
+              >
+                LKS
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="PKL"
+              >
+                PKL
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Sertifikasi"
+              >
+                Sertifikasi
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Ekstrakurikuler"
+              >
+                Ekstrakurikuler
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="RPL"
+              >
+                RPL
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="TKJ"
+              >
+                TKJ
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="DKV"
+              >
+                DKV
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Wisuda"
+              >
+                Wisuda
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Beasiswa"
+              >
+                Beasiswa
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Cisco"
+              >
+                Cisco
+              </button>
+              <button
+                class="tag-btn bg-gray-100 text-gray-600 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer"
+                data-tag="Adobe"
+              >
+                Adobe
+              </button>
+            </div>
+          </div>
+
+          <!-- Arsip Bulan -->
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 reveal"
+          >
+            <h3 class="font-black text-gray-900 mb-5">Arsip</h3>
+            <div class="space-y-1">
+              <button
+                class="archive-btn w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm font-semibold text-gray-700 group"
+                data-month="Mei 2025"
+              >
+                <span>Mei 2025</span>
+                <span
+                  class="bg-gray-100 group-hover:bg-primary-100 group-hover:text-primary-700 text-gray-500 text-xs font-black w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
+                  >9</span
+                >
+              </button>
+              <button
+                class="archive-btn w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm font-semibold text-gray-700 group"
+                data-month="April 2025"
+              >
+                <span>April 2025</span>
+                <span
+                  class="bg-gray-100 group-hover:bg-primary-100 group-hover:text-primary-700 text-gray-500 text-xs font-black w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
+                  >11</span
+                >
+              </button>
+              <button
+                class="archive-btn w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm font-semibold text-gray-700 group"
+                data-month="Maret 2025"
+              >
+                <span>Maret 2025</span>
+                <span
+                  class="bg-gray-100 group-hover:bg-primary-100 group-hover:text-primary-700 text-gray-500 text-xs font-black w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
+                  >8</span
+                >
+              </button>
+              <button
+                class="archive-btn w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm font-semibold text-gray-700 group"
+                data-month="Februari 2025"
+              >
+                <span>Februari 2025</span>
+                <span
+                  class="bg-gray-100 group-hover:bg-primary-100 group-hover:text-primary-700 text-gray-500 text-xs font-black w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
+                  >7</span
+                >
+              </button>
+              <button
+                class="archive-btn w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm font-semibold text-gray-700 group"
+                data-month="Januari 2025"
+              >
+                <span>Januari 2025</span>
+                <span
+                  class="bg-gray-100 group-hover:bg-primary-100 group-hover:text-primary-700 text-gray-500 text-xs font-black w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
+                  >13</span
+                >
+              </button>
+            </div>
+          </div>
+
+          <!-- Subscribe / WhatsApp -->
+          <div
+            class="bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 rounded-2xl p-6 text-white reveal"
+          >
+            <div
+              class="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+            </div>
+            <h3 class="font-black text-lg mb-2">Notifikasi Terbaru</h3>
+            <p class="text-white/80 text-sm leading-relaxed mb-5">
+              Dapatkan info PPDB, pengumuman penting, dan berita terbaru
+              langsung via WhatsApp.
+            </p>
+            <a
+              href="https://wa.me/6281234567890"
+              target="_blank"
+              class="flex items-center justify-center gap-2 bg-white text-primary-700 font-bold text-sm px-5 py-3 rounded-xl hover:bg-yellow-300 hover:text-primary-900 transition-all"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+                />
+              </svg>
+              Hubungi via WhatsApp
+            </a>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gray-900 text-white mt-8">
+      <div class="py-14 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div class="lg:col-span-1">
+              <div class="flex items-center gap-3 mb-5">
+                <div
+                  class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 14l9-5-9-5-9 5 9 5z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <span class="font-extrabold text-lg">SMK Nusantara</span>
+                  <span
+                    class="block text-xs text-primary-400 font-semibold tracking-wider"
+                    >TEKNOLOGI</span
+                  >
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm leading-relaxed">
+                Mempersiapkan generasi profesional yang kompeten, berkarakter,
+                dan siap bersaing di era industri 4.0.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold text-white mb-5">Navigasi</h4>
+              <ul class="space-y-2.5 text-sm text-gray-400">
+                <li>
+                  <a
+                    href="index.html"
+                    class="hover:text-primary-400 transition-colors"
+                    >Beranda</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="index.html#tentang"
+                    class="hover:text-primary-400 transition-colors"
+                    >Tentang Sekolah</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="index.html#jurusan"
+                    class="hover:text-primary-400 transition-colors"
+                    >Program Keahlian</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="index.html#ppdb"
+                    class="hover:text-primary-400 transition-colors"
+                    >PPDB 2025/2026</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="post.html"
+                    class="hover:text-primary-400 transition-colors text-primary-400 font-semibold"
+                    >Berita & Pengumuman</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-white mb-5">Kontak</h4>
+              <ul class="space-y-3 text-sm text-gray-400">
+                <li class="flex items-start gap-3">
+                  <svg
+                    class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span
+                    >Jl. Pendidikan No. 123, Banyumas, Jawa Tengah 53141</span
+                  >
+                </li>
+                <li class="flex items-center gap-3">
+                  <svg
+                    class="w-5 h-5 text-primary-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    /></svg
+                  ><span>info@smknusantara.sch.id</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <svg
+                    class="w-5 h-5 text-green-400"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+                    /></svg
+                  ><span>0812-3456-7890 (WhatsApp)</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-white mb-5">Kategori</h4>
+              <ul class="space-y-2.5 text-sm text-gray-400">
+                <li>
+                  <button
+                    class="filter-btn-footer hover:text-primary-400 transition-colors flex items-center gap-2"
+                    data-cat="berita"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span>Berita
+                    (16)
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="filter-btn-footer hover:text-primary-400 transition-colors flex items-center gap-2"
+                    data-cat="pengumuman"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span
+                    >Pengumuman (12)
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="filter-btn-footer hover:text-primary-400 transition-colors flex items-center gap-2"
+                    data-cat="kegiatan"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span
+                    >Kegiatan (14)
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="filter-btn-footer hover:text-primary-400 transition-colors flex items-center gap-2"
+                    data-cat="prestasi"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span
+                    >Prestasi (6)
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-gray-500"
+        >
+          <span
+            >© 2025 SMK Nusantara Teknologi. Semua hak cipta dilindungi.</span
+          >
+          <div class="flex gap-5">
+            <a href="#" class="hover:text-gray-300 transition-colors"
+              >Kebijakan Privasi</a
+            >
+            <a href="#" class="hover:text-gray-300 transition-colors"
+              >Syarat & Ketentuan</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button
+      id="scroll-top"
+      class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none hover:-translate-y-1 z-40"
+      aria-label="Scroll to top"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+      </svg>
+    </button>
+
+    <script>
+      // ============================================================
+      //  DATA – 48 posts (extendable)
+      // ============================================================
+      const allPosts = [
+        {
+          id: 1,
+          title: "Siswa RPL Raih Juara 1 LKS Tingkat Nasional 2025",
+          category: "berita",
+          date: "2025-05-15",
+          month: "Mei 2025",
+          img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80",
+          excerpt:
+            "Tim siswa jurusan RPL berhasil meraih juara pertama dalam ajang Lomba Kompetensi Siswa tingkat nasional yang diselenggarakan di Jakarta.",
+          tags: ["LKS", "RPL"],
+          featured: true,
+        },
+        {
+          id: 2,
+          title: "Pengumuman Resmi Jadwal PPDB Tahun Ajaran 2025/2026",
+          category: "pengumuman",
+          date: "2025-05-10",
+          month: "Mei 2025",
+          img: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=500&q=80",
+          excerpt:
+            "Pendaftaran peserta didik baru gelombang pertama resmi dibuka mulai 1 Juni 2025. Kuota terbatas, segera daftarkan diri.",
+          tags: ["PPDB"],
+          featured: true,
+          isNew: true,
+        },
+        {
+          id: 3,
+          title: "Kunjungan Industri ke PT Telkom Indonesia Tbk Jakarta",
+          category: "kegiatan",
+          date: "2025-05-05",
+          month: "Mei 2025",
+          img: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500&q=80",
+          excerpt:
+            "Sebanyak 120 siswa TKJ dan RPL melakukan kunjungan industri ke kantor pusat Telkom Indonesia.",
+          tags: ["TKJ", "RPL"],
+        },
+        {
+          id: 4,
+          title:
+            "85 Siswa TKJ Lulus Sertifikasi Cisco CCNA dengan Nilai Memuaskan",
+          category: "prestasi",
+          date: "2025-04-28",
+          month: "April 2025",
+          img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80",
+          excerpt:
+            "Rekor baru! 85 dari 90 siswa TKJ dinyatakan lulus ujian sertifikasi Cisco CCNA dengan nilai rata-rata 87 poin.",
+          tags: ["TKJ", "Sertifikasi", "Cisco"],
+        },
+        {
+          id: 5,
+          title: "Jadwal Ujian Akhir Semester Genap Tahun Ajaran 2024/2025",
+          category: "pengumuman",
+          date: "2025-04-20",
+          month: "April 2025",
+          img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80",
+          excerpt:
+            "Ujian Akhir Semester Genap dilaksanakan mulai 2 Juni 2025. Siswa wajib mempersiapkan diri.",
+          tags: ["Pengumuman"],
+        },
+        {
+          id: 6,
+          title: "Pelepasan dan Wisuda Angkatan ke-23 Berlangsung Meriah",
+          category: "kegiatan",
+          date: "2025-04-10",
+          month: "April 2025",
+          img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80",
+          excerpt:
+            "Prosesi wisuda angkatan ke-23 berlangsung khidmat dan meriah di Aula SMK Nusantara. Sebanyak 412 siswa dinyatakan lulus.",
+          tags: ["Wisuda"],
+        },
+        {
+          id: 7,
+          title: "Pelatihan Adobe Certified Professional untuk Siswa DKV",
+          category: "kegiatan",
+          date: "2025-04-05",
+          month: "April 2025",
+          img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&q=80",
+          excerpt:
+            "Program pelatihan sertifikasi Adobe resmi digelar bagi siswa DKV kelas XI selama 5 hari penuh bersama instruktur bersertifikat.",
+          tags: ["DKV", "Adobe", "Sertifikasi"],
+        },
+        {
+          id: 8,
+          title: "SMK Nusantara Tandatangani MoU dengan PT Astra International",
+          category: "berita",
+          date: "2025-04-01",
+          month: "April 2025",
+          img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&q=80",
+          excerpt:
+            "Penandatanganan MoU antara SMK Nusantara dan PT Astra International membuka peluang PKL dan rekrutmen bagi siswa TBSM.",
+          tags: ["TBSM", "PKL"],
+        },
+        {
+          id: 9,
+          title:
+            "Lomba Desain Poster Digital Antar Jurusan DKV Tingkat Provinsi",
+          category: "prestasi",
+          date: "2025-03-28",
+          month: "Maret 2025",
+          img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&q=80",
+          excerpt:
+            "Siswa DKV meraih juara dua dalam lomba desain poster digital tingkat provinsi yang diikuti 200+ peserta.",
+          tags: ["DKV", "Prestasi"],
+        },
+        {
+          id: 10,
+          title: "Pendaftaran Beasiswa Prestasi Semester Genap Dibuka",
+          category: "pengumuman",
+          date: "2025-03-20",
+          month: "Maret 2025",
+          img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80",
+          excerpt:
+            "SMK Nusantara membuka pendaftaran beasiswa prestasi untuk siswa berprestasi akademik dan non-akademik.",
+          tags: ["Beasiswa"],
+        },
+        {
+          id: 11,
+          title: "Program Magang Intensif 6 Bulan Bersama Gojek Dimulai",
+          category: "kegiatan",
+          date: "2025-03-15",
+          month: "Maret 2025",
+          img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&q=80",
+          excerpt:
+            "35 siswa RPL terpilih memulai program magang intensif di kantor Gojek Yogyakarta selama satu semester penuh.",
+          tags: ["RPL", "PKL"],
+        },
+        {
+          id: 12,
+          title: "Juara 1 Olimpiade Akuntansi Tingkat Kabupaten Banyumas",
+          category: "prestasi",
+          date: "2025-03-10",
+          month: "Maret 2025",
+          img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80",
+          excerpt:
+            "Siswa jurusan Akuntansi meraih juara pertama dalam olimpiade akuntansi tingkat kabupaten yang diikuti 45 sekolah.",
+          tags: ["Akuntansi", "Prestasi"],
+        },
+        {
+          id: 13,
+          title: "Perubahan Jadwal Seragam & Atribut Siswa TA 2025/2026",
+          category: "pengumuman",
+          date: "2025-03-05",
+          month: "Maret 2025",
+          img: "https://images.unsplash.com/photo-1592066575517-58df903152f2?w=500&q=80",
+          excerpt:
+            "Pemberitahuan resmi mengenai perubahan ketentuan seragam dan atribut siswa mulai tahun ajaran baru.",
+          tags: ["Pengumuman"],
+        },
+        {
+          id: 14,
+          title: "Workshop IoT dan Embedded Systems untuk Siswa TKJ Kelas XII",
+          category: "kegiatan",
+          date: "2025-02-25",
+          month: "Februari 2025",
+          img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80",
+          excerpt:
+            "Workshop praktis IoT selama 3 hari bagi siswa TKJ kelas XII dengan mentor dari komunitas developer Purwokerto.",
+          tags: ["TKJ"],
+        },
+        {
+          id: 15,
+          title: "Hasil Seleksi Penerimaan Siswa Baru Gelombang 2 Diumumkan",
+          category: "pengumuman",
+          date: "2025-02-20",
+          month: "Februari 2025",
+          img: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=500&q=80",
+          excerpt:
+            "Pengumuman resmi hasil seleksi penerimaan siswa baru gelombang kedua tahun ajaran 2024/2025.",
+          tags: ["PPDB"],
+        },
+        {
+          id: 16,
+          title: "Kolaborasi Pembuatan Film Pendek Bersama DKV SMK Se-Banyumas",
+          category: "kegiatan",
+          date: "2025-02-15",
+          month: "Februari 2025",
+          img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=500&q=80",
+          excerpt:
+            "Siswa DKV berkolaborasi dengan sekolah lain dalam proyek film pendek bertema sosial yang akan diputar di bioskop lokal.",
+          tags: ["DKV"],
+        },
+        {
+          id: 17,
+          title:
+            "SMK Nusantara Raih Penghargaan Sekolah Terbaik Se-Jawa Tengah",
+          category: "prestasi",
+          date: "2025-02-10",
+          month: "Februari 2025",
+          img: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=500&q=80",
+          excerpt:
+            "Penghargaan bergengsi dari Dinas Pendidikan Provinsi Jawa Tengah atas capaian akademik dan non-akademik yang luar biasa.",
+          tags: ["Prestasi"],
+        },
+        {
+          id: 18,
+          title: "Siswa TBSM Juara Nasional Olimpiade Otomotif 2025",
+          category: "prestasi",
+          date: "2025-02-05",
+          month: "Februari 2025",
+          img: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=500&q=80",
+          excerpt:
+            "Tim TBSM meraih medali emas dalam Olimpiade Otomotif Nasional 2025 setelah melewati 3 babak seleksi ketat.",
+          tags: ["TBSM", "Prestasi"],
+        },
+        {
+          id: 19,
+          title: "Libur Semester Genap dan Informasi Kegiatan MPLS Baru",
+          category: "pengumuman",
+          date: "2025-01-30",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=500&q=80",
+          excerpt:
+            "Jadwal libur akhir tahun ajaran dan informasi lengkap kegiatan MPLS untuk siswa baru tahun ajaran 2025/2026.",
+          tags: ["Pengumuman"],
+        },
+        {
+          id: 20,
+          title: "Kelas Coding Python untuk Pemula Dibuka Gratis oleh Alumni",
+          category: "kegiatan",
+          date: "2025-01-25",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=500&q=80",
+          excerpt:
+            "Program kelas coding Python gratis selama 1 bulan dipersembahkan oleh alumni RPL yang kini bekerja di perusahaan teknologi nasional.",
+          tags: ["RPL"],
+        },
+        {
+          id: 21,
+          title:
+            "Rapat Koordinasi Komite Sekolah dan Wali Murid Semester Genap",
+          category: "kegiatan",
+          date: "2025-01-20",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=500&q=80",
+          excerpt:
+            "Pertemuan wali murid dan komite sekolah membahas rencana program dan anggaran semester genap tahun ajaran 2024/2025.",
+          tags: ["Kegiatan"],
+        },
+        {
+          id: 22,
+          title: "Pembukaan Ekstrakurikuler Robotika dan Coding Club TA 2025",
+          category: "kegiatan",
+          date: "2025-01-15",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=80",
+          excerpt:
+            "SMK Nusantara membuka dua ekstrakurikuler baru: Robotika dan Coding Club, terbuka untuk semua jurusan.",
+          tags: ["Ekstrakurikuler"],
+        },
+        {
+          id: 23,
+          title: "Siswa RPL Luncurkan Aplikasi Absensi Wajah Berbasis AI",
+          category: "berita",
+          date: "2025-01-10",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500&q=80",
+          excerpt:
+            "Proyek tugas akhir siswa RPL XII menghasilkan aplikasi absensi pengenalan wajah yang kini digunakan resmi oleh sekolah.",
+          tags: ["RPL"],
+        },
+        {
+          id: 24,
+          title: "Pengumuman Penyesuaian Jam Masuk Sekolah Mulai Februari 2025",
+          category: "pengumuman",
+          date: "2025-01-05",
+          month: "Januari 2025",
+          img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80",
+          excerpt:
+            "Terhitung 3 Februari 2025 jam masuk sekolah disesuaikan menjadi pukul 06.45 WIB sesuai arahan Kemdikbudristek.",
+          tags: ["Pengumuman"],
+        },
+      ];
+
+      // ============================================================
+      //  STATE
+      // ============================================================
+      let state = {
+        search: "",
+        category: "semua",
+        sort: "terbaru",
+        page: 1,
+        perPage: 9,
+        viewMode: "grid", // grid | list
+        activeTag: null,
+        activeMonth: null,
+      };
+
+      // ============================================================
+      //  HELPERS
+      // ============================================================
+      const badgeClass = {
+        berita: "badge-berita",
+        pengumuman: "badge-pengumuman",
+        kegiatan: "badge-kegiatan",
+        prestasi: "badge-prestasi",
+      };
+      const badgeLabel = {
+        berita: "Berita",
+        pengumuman: "Pengumuman",
+        kegiatan: "Kegiatan",
+        prestasi: "Prestasi",
+      };
+      const dotColor = {
+        berita: "bg-red-500",
+        pengumuman: "bg-yellow-500",
+        kegiatan: "bg-blue-500",
+        prestasi: "bg-green-500",
+      };
+
+      function fmtDate(iso) {
+        const d = new Date(iso);
+        return d.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      function filterPosts() {
+        let posts = [...allPosts];
+        // category
+        if (state.category !== "semua")
+          posts = posts.filter((p) => p.category === state.category);
+        // search
+        if (state.search.trim()) {
+          const q = state.search.toLowerCase();
+          posts = posts.filter(
+            (p) =>
+              p.title.toLowerCase().includes(q) ||
+              p.excerpt.toLowerCase().includes(q) ||
+              (p.tags || []).some((t) => t.toLowerCase().includes(q)),
+          );
+        }
+        // tag
+        if (state.activeTag)
+          posts = posts.filter((p) => (p.tags || []).includes(state.activeTag));
+        // month
+        if (state.activeMonth)
+          posts = posts.filter((p) => p.month === state.activeMonth);
+        // sort
+        if (state.sort === "terbaru")
+          posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        else if (state.sort === "terlama")
+          posts.sort((a, b) => new Date(a.date) - new Date(b.date));
+        else if (state.sort === "az")
+          posts.sort((a, b) => a.title.localeCompare(b.title));
+        else if (state.sort === "za")
+          posts.sort((a, b) => b.title.localeCompare(a.title));
+        return posts;
+      }
+
+      // ============================================================
+      //  RENDER CARD – GRID
+      // ============================================================
+      function cardGridHTML(p) {
+        return `
+      <article class="card-hover bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group flex flex-col">
+        <div class="relative overflow-hidden h-48 flex-shrink-0">
+          <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
+          <div class="absolute top-4 left-4 flex gap-2">
+            <span class="text-xs font-bold px-3 py-1.5 rounded-lg ${badgeClass[p.category]}">${badgeLabel[p.category]}</span>
+            ${p.isNew ? '<span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg animate-pulse">Baru</span>' : ""}
+          </div>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-2 text-gray-400 text-xs font-medium mb-3">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            ${fmtDate(p.date)}
+          </div>
+          <h3 class="font-black text-gray-900 text-base leading-snug mb-2 group-hover:text-primary-600 transition-colors line-clamp-2 flex-1">${p.title}</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">${p.excerpt}</p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex flex-wrap gap-1">
+              ${(p.tags || [])
+                .slice(0, 2)
+                .map(
+                  (t) =>
+                    `<span class="bg-gray-100 text-gray-500 text-xs font-semibold px-2.5 py-1 rounded-lg">${t}</span>`,
+                )
+                .join("")}
+            </div>
+            <a href="#" class="inline-flex items-center gap-1 text-primary-600 text-xs font-bold hover:gap-2 transition-all flex-shrink-0">
+              Baca <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>`;
+      }
+
+      // ============================================================
+      //  RENDER CARD – LIST
+      // ============================================================
+      function cardListHTML(p) {
+        return `
+      <article class="card-hover bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group flex flex-col sm:flex-row gap-0">
+        <div class="relative overflow-hidden sm:w-56 flex-shrink-0 h-44 sm:h-auto">
+          <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
+          <div class="absolute top-3 left-3">
+            <span class="text-xs font-bold px-2.5 py-1.5 rounded-lg ${badgeClass[p.category]}">${badgeLabel[p.category]}</span>
+          </div>
+        </div>
+        <div class="p-5 flex flex-col justify-between flex-1">
+          <div>
+            <div class="flex items-center gap-2 text-gray-400 text-xs font-medium mb-2">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              ${fmtDate(p.date)}
+              ${p.isNew ? '<span class="bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded-lg animate-pulse ml-1">Baru</span>' : ""}
+            </div>
+            <h3 class="font-black text-gray-900 text-base leading-snug mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">${p.title}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">${p.excerpt}</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex flex-wrap gap-1">
+              ${(p.tags || [])
+                .slice(0, 3)
+                .map(
+                  (t) =>
+                    `<span class="bg-gray-100 text-gray-500 text-xs font-semibold px-2.5 py-1 rounded-lg">${t}</span>`,
+                )
+                .join("")}
+            </div>
+            <a href="#" class="inline-flex items-center gap-1.5 text-primary-600 text-sm font-bold hover:gap-2.5 transition-all flex-shrink-0 ml-4">
+              Baca Selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>`;
+      }
+
+      // ============================================================
+      //  RENDER PAGINATION
+      // ============================================================
+      function renderPagination(total) {
+        const totalPages = Math.ceil(total / state.perPage);
+        const pg = document.getElementById("pagination");
+        const info = document.getElementById("page-info");
+        if (!pg) return;
+        pg.innerHTML = "";
+        if (totalPages <= 1) {
+          pg.parentElement.style.display = "none";
+          return;
+        }
+        pg.parentElement.style.display = "flex";
+        info.textContent = `Halaman ${state.page} dari ${totalPages}`;
+
+        // Prev
+        const prev = document.createElement("button");
+        prev.className = "page-btn";
+        prev.disabled = state.page === 1;
+        prev.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>`;
+        prev.onclick = () => {
+          if (state.page > 1) {
+            state.page--;
+            render();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        };
+        pg.appendChild(prev);
+
+        // Pages
+        let pages = [];
+        if (totalPages <= 7) {
+          for (let i = 1; i <= totalPages; i++) pages.push(i);
+        } else {
+          pages = [1, 2];
+          if (state.page > 4) pages.push("...");
+          for (
+            let i = Math.max(3, state.page - 1);
+            i <= Math.min(totalPages - 2, state.page + 1);
+            i++
+          )
+            pages.push(i);
+          if (state.page < totalPages - 3) pages.push("...");
+          pages.push(totalPages - 1, totalPages);
+          pages = [...new Set(pages)];
+        }
+
+        pages.forEach((p) => {
+          if (p === "...") {
+            const el = document.createElement("span");
+            el.className = "px-1 text-gray-400 text-sm font-bold self-center";
+            el.textContent = "···";
+            pg.appendChild(el);
+          } else {
+            const btn = document.createElement("button");
+            btn.className = `page-btn ${p === state.page ? "active" : ""}`;
+            btn.textContent = p;
+            btn.onclick = () => {
+              state.page = p;
+              render();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+            pg.appendChild(btn);
+          }
+        });
+
+        // Next
+        const next = document.createElement("button");
+        next.className = "page-btn";
+        next.disabled = state.page === totalPages;
+        next.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7 7"/></svg>`;
+        next.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+        next.onclick = () => {
+          if (state.page < totalPages) {
+            state.page++;
+            render();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        };
+        pg.appendChild(next);
+      }
+
+      // ============================================================
+      //  MAIN RENDER
+      // ============================================================
+      function render() {
+        const filtered = filterPosts();
+        const total = filtered.length;
+        const start = (state.page - 1) * state.perPage;
+        const paged = filtered.slice(start, start + state.perPage);
+
+        const gridEl = document.getElementById("posts-container");
+        const listEl = document.getElementById("posts-list-container");
+        const emptyEl = document.getElementById("empty-state");
+
+        // Switch view
+        if (state.viewMode === "grid") {
+          gridEl.classList.remove("hidden");
+          gridEl.classList.add("grid");
+          listEl.classList.add("hidden");
+          listEl.classList.remove("flex");
+        } else {
+          gridEl.classList.add("hidden");
+          gridEl.classList.remove("grid");
+          listEl.classList.remove("hidden");
+          listEl.classList.add("flex");
+        }
+
+        if (paged.length === 0) {
+          gridEl.innerHTML = "";
+          listEl.innerHTML = "";
+          emptyEl.style.display = "block";
+          document.getElementById("pagination-wrapper").style.display = "none";
+        } else {
+          emptyEl.style.display = "none";
+          gridEl.innerHTML = paged.map(cardGridHTML).join("");
+          listEl.innerHTML = paged.map(cardListHTML).join("");
+          renderPagination(total);
+        }
+
+        // Results info
+        const end = Math.min(start + state.perPage, total);
+        document.getElementById("showing-count").textContent =
+          paged.length > 0 ? `${start + 1}–${end}` : "0";
+        document.getElementById("total-count").textContent = total;
+      }
+
+      // ============================================================
+      //  EVENT LISTENERS
+      // ============================================================
+
+      // Search
+      let searchTimer;
+      document
+        .getElementById("search-input")
+        .addEventListener("input", function () {
+          clearTimeout(searchTimer);
+          const val = this.value;
+          document
+            .getElementById("search-clear")
+            .classList.toggle("hidden", val.length === 0);
+          searchTimer = setTimeout(() => {
+            state.search = val;
+            state.page = 1;
+            render();
+          }, 280);
+        });
+
+      document.getElementById("search-clear").addEventListener("click", () => {
+        document.getElementById("search-input").value = "";
+        document.getElementById("search-clear").classList.add("hidden");
+        state.search = "";
+        state.page = 1;
+        render();
+      });
+
+      // Sort
+      document
+        .getElementById("sort-select")
+        .addEventListener("change", function () {
+          state.sort = this.value;
+          state.page = 1;
+          render();
+        });
+
+      // Filter buttons
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          state.category = this.dataset.cat;
+          state.page = 1;
+          state.activeTag = null;
+          state.activeMonth = null;
+          render();
+        });
+      });
+
+      // Footer category shortcuts
+      document.querySelectorAll(".filter-btn-footer").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          setTimeout(() => {
+            state.category = this.dataset.cat;
+            state.page = 1;
+            document.querySelectorAll(".filter-btn").forEach((b) => {
+              b.classList.toggle("active", b.dataset.cat === state.category);
+            });
+            render();
+          }, 400);
+        });
+      });
+
+      // View toggle
+      document
+        .getElementById("view-grid")
+        .addEventListener("click", function () {
+          state.viewMode = "grid";
+          this.classList.add("bg-white", "shadow-sm", "text-primary-600");
+          this.classList.remove("text-gray-400");
+          const listBtn = document.getElementById("view-list");
+          listBtn.classList.remove("bg-white", "shadow-sm", "text-primary-600");
+          listBtn.classList.add("text-gray-400");
+          render();
+        });
+
+      document
+        .getElementById("view-list")
+        .addEventListener("click", function () {
+          state.viewMode = "list";
+          this.classList.add("bg-white", "shadow-sm", "text-primary-600");
+          this.classList.remove("text-gray-400");
+          const gridBtn = document.getElementById("view-grid");
+          gridBtn.classList.remove("bg-white", "shadow-sm", "text-primary-600");
+          gridBtn.classList.add("text-gray-400");
+          render();
+        });
+
+      // Tags sidebar
+      document.querySelectorAll(".tag-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const tag = this.dataset.tag;
+          if (state.activeTag === tag) {
+            state.activeTag = null;
+            this.classList.remove("!bg-primary-100", "!text-primary-700");
+          } else {
+            document
+              .querySelectorAll(".tag-btn")
+              .forEach((b) =>
+                b.classList.remove("!bg-primary-100", "!text-primary-700"),
+              );
+            state.activeTag = tag;
+            this.classList.add("!bg-primary-100", "!text-primary-700");
+          }
+          state.page = 1;
+          state.search = "";
+          document.getElementById("search-input").value = "";
+          document.getElementById("search-clear").classList.add("hidden");
+          render();
+        });
+      });
+
+      // Archive sidebar
+      document.querySelectorAll(".archive-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const month = this.dataset.month;
+          if (state.activeMonth === month) {
+            state.activeMonth = null;
+            this.classList.remove(
+              "bg-primary-50",
+              "text-primary-600",
+              "font-bold",
+            );
+          } else {
+            document
+              .querySelectorAll(".archive-btn")
+              .forEach((b) =>
+                b.classList.remove(
+                  "bg-primary-50",
+                  "text-primary-600",
+                  "font-bold",
+                ),
+              );
+            state.activeMonth = month;
+            this.classList.add(
+              "bg-primary-50",
+              "text-primary-600",
+              "font-bold",
+            );
+          }
+          state.page = 1;
+          state.activeTag = null;
+          render();
+        });
+      });
+
+      // Reset filter
+      document.getElementById("reset-filter").addEventListener("click", () => {
+        state = {
+          ...state,
+          search: "",
+          category: "semua",
+          page: 1,
+          activeTag: null,
+          activeMonth: null,
+        };
+        document.getElementById("search-input").value = "";
+        document.getElementById("search-clear").classList.add("hidden");
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) =>
+            b.classList.toggle("active", b.dataset.cat === "semua"),
+          );
+        document
+          .querySelectorAll(".tag-btn")
+          .forEach((b) =>
+            b.classList.remove("!bg-primary-100", "!text-primary-700"),
+          );
+        document
+          .querySelectorAll(".archive-btn")
+          .forEach((b) =>
+            b.classList.remove(
+              "bg-primary-50",
+              "text-primary-600",
+              "font-bold",
+            ),
+          );
+        render();
+      });
+
+      // ============================================================
+      //  NAVBAR
+      // ============================================================
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const hamBars = document.querySelectorAll("#ham-icon span");
+      let menuOpen = false;
+
+      hamburger.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle("hidden", !menuOpen);
+        if (menuOpen) {
+          hamBars[0].style.cssText =
+            "transform:rotate(45deg) translate(4px,4px)";
+          hamBars[1].style.cssText = "opacity:0";
+          hamBars[2].style.cssText =
+            "transform:rotate(-45deg) translate(4px,-4px)";
+        } else {
+          hamBars.forEach((b) => (b.style.cssText = ""));
+        }
+      });
+      document.querySelectorAll(".mobile-link").forEach((l) =>
+        l.addEventListener("click", () => {
+          menuOpen = false;
+          mobileMenu.classList.add("hidden");
+          hamBars.forEach((b) => (b.style.cssText = ""));
+        }),
+      );
+
+      // ============================================================
+      //  SCROLL REVEAL
+      // ============================================================
+      const revealEls = document.querySelectorAll(".reveal");
+      const revObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -30px 0px" },
+      );
+      revealEls.forEach((el) => revObs.observe(el));
+
+      // ============================================================
+      //  SCROLL TO TOP
+      // ============================================================
+      const scrollTopBtn = document.getElementById("scroll-top");
+      window.addEventListener("scroll", () => {
+        scrollTopBtn.classList.toggle("opacity-0", window.scrollY <= 400);
+        scrollTopBtn.classList.toggle(
+          "pointer-events-none",
+          window.scrollY <= 400,
+        );
+      });
+      scrollTopBtn.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+
+      // ============================================================
+      //  INIT
+      // ============================================================
+      render();
+    </script>
+  </body>
+</html>
